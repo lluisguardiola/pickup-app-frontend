@@ -19,40 +19,36 @@ class Login extends React.Component {
 		})
 	}
 
-	handleOnSubmit = event => {
-		event.preventDefault()
+	// handleOnSubmit = event => {
+	// 	event.preventDefault()
 
-		const reqObj = {
-			method: 'POST',
-			headers: {
-				'Content-Type': 'application/json',
-				'Accept': 'application/json'
-			},
-			body: JSON.stringify(this.state)
-		}
+	// 	const reqObj = {
+	// 		method: 'POST',
+	// 		headers: {
+	// 			'Content-Type': 'application/json',
+	// 			'Accept': 'application/json'
+	// 		},
+	// 		body: JSON.stringify(this.state)
+	// 	}
 
-		fetch('http://localhost:4000/auth', reqObj)
-		.then(resp => resp.json())
-		.then(user => {
-			// store user data in redux store
-			// redirect to dashboard
-			if (!user.error) {
-				this.props.loginUser(user)
-				this.props.history.push('/')
-			} else {
-				alert(user.error)
-				this.props.history.push('/login')
-			}
-		})
+	// 	fetch('http://localhost:4000/auth', reqObj)
+	// 	.then(resp => resp.json())
+	// 	.then(user => {
+	// 		// store user data in redux store
+	// 		// redirect to dashboard
+	// 		if (!user.error) {
+	// 			this.props.loginUser(user)
+	// 			this.props.history.push('/')
+	// 		} else {
+	// 			alert(user.error)
+	// 			this.props.history.push('/login')
+	// 		}
+	// 	})
 
-		this.setState({
-			username: '',
-			password: ''
-		})
-	}
-
-	// handleSignUpClick = () => {
-		// this.props.history.push('/signup')
+	// 	this.setState({
+	// 		username: '',
+	// 		password: ''
+	// 	})
 	// }
 	
 	render () {
@@ -112,4 +108,5 @@ class Login extends React.Component {
 // }
 
 // export default connect(null, mapDispatchToProps)(Login)
+
 export default Login

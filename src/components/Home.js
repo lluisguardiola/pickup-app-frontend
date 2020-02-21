@@ -11,6 +11,9 @@ class Home extends React.Component {
 				<Grid.Row centered>
 					<Header as='h1'>PickUp App Home</Header>
 				</Grid.Row>
+				<Grid.Row>
+					
+				</Grid.Row>
 			</Grid>
 		)
 	}
