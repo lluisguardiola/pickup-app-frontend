@@ -1,6 +1,7 @@
 import React from 'react'
 import {Grid, Form, Input} from 'semantic-ui-react'
-// import {connect} from 'react-redux'
+import {connect} from 'react-redux'
+import {loginUser} from '../actions/auth'
 // import { Link } from 'react-router-dom';
 
 
@@ -19,38 +20,36 @@ class Login extends React.Component {
 		})
 	}
 
-	// handleOnSubmit = event => {
-	// 	event.preventDefault()
+	handleOnSubmit = event => {
+		event.preventDefault()
+			
+		const reqObj = {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json',
+				'Accept': 'application/json'
+			},
+			body: JSON.stringify(this.state)
+		}
 
-	// 	const reqObj = {
-	// 		method: 'POST',
-	// 		headers: {
-	// 			'Content-Type': 'application/json',
-	// 			'Accept': 'application/json'
-	// 		},
-	// 		body: JSON.stringify(this.state)
-	// 	}
+		fetch('http://localhost:4000/auth', reqObj)
+		.then(resp => resp.json())
+		.then(user => {
+			if (!user.error) {
+				this.props.loginUser(user)
+				this.props.history.push('/')
+			} else {
+				alert(user.error)
+				this.props.history.push('/login')
+			}
+		})
 
-	// 	fetch('http://localhost:4000/auth', reqObj)
-	// 	.then(resp => resp.json())
-	// 	.then(user => {
-	// 		// store user data in redux store
-	// 		// redirect to dashboard
-	// 		if (!user.error) {
-	// 			this.props.loginUser(user)
-	// 			this.props.history.push('/')
-	// 		} else {
-	// 			alert(user.error)
-	// 			this.props.history.push('/login')
-	// 		}
-	// 	})
+		this.setState({
+			username: '',
+			password: ''
+		})
+	}
 
-	// 	this.setState({
-	// 		username: '',
-	// 		password: ''
-	// 	})
-	// }
-	
 	render () {
 
 		return (
@@ -101,12 +100,10 @@ class Login extends React.Component {
 	}
 }
 
-// const mapDispatchToProps = dispatch => {
-//     return {
-//         loginUser: user => dispatch(loginUser(user))
-//     }
-// }
+const mapDispatchToProps = dispatch => {
+    return {
+        loginUser: user => dispatch(loginUser(user))
+    }
+}
 
-// export default connect(null, mapDispatchToProps)(Login)
-
-export default Login
+export default connect(null, mapDispatchToProps)(Login)
