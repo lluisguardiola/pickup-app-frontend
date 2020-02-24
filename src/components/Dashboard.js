@@ -1,22 +1,20 @@
 import React from 'react'
 import {Grid, Header} from "semantic-ui-react"
-// import {connect} from 'react-redux'
-// import {withRouter, Link} from 'react-router-dom'
-// import NewNoteForm from './notes/NewNoteForm'
+import {connect} from 'react-redux'
+import {withRouter, Link} from 'react-router-dom'
 
 class Dashboard extends React.Component {
 
 	render(){
-
-        // if(!this.props.auth) {
-        //     this.props.history.push('/login')
-        //     return null
-		// } 
+        if(!this.props.user) {
+            this.props.history.push('/login')
+            return null
+		}
 		
 		return (
 			<Grid style={{marginTop: "2rem"}}>
 				<Grid.Row style={{marginTop: "1rem"}}>
-					<Header as='h2'>Your Dashboard</Header>
+					<Header as='h2'>Your Dashboard ––– Welcome, {this.props.user.name}</Header>
 				</Grid.Row>
 				<Grid.Row style={{marginTop: "1rem"}}>
 					<Header as='h3'>Upcoming Events</Header>
@@ -29,4 +27,10 @@ class Dashboard extends React.Component {
 	}
 }
 
-export default Dashboard
+const mapStateToProps = state => {
+    return {
+        user: state.auth
+    }
+}
+
+export default connect(mapStateToProps)(withRouter(Dashboard))

@@ -1,14 +1,18 @@
 import React from 'react'
 import {Grid, Form} from 'semantic-ui-react'
-// import {connect} from 'react-redux'
+import {connect} from 'react-redux'
+import {loginUser} from '../actions/auth'
 
 class SignUp extends React.Component {
 	constructor(){
 		super()
 		this.state = {
-			username: 'llui',
-			password: 'hello',
-			confirmpassword: 'hello'
+			username: '',
+			password: '',
+			confirmpassword: '',
+			name: '',
+			age: '',
+			city: ''
 		}
 	}
 
@@ -18,41 +22,52 @@ class SignUp extends React.Component {
 		})
 	}
 
-	// handleOnSubmit = (e) => {
-	//     e.preventDefault()
-
-	//     const reqObj = {
-	//         method: 'POST',
-	//         headers: {
-	//             'Content-Type': 'application/json',
-	//             'Accept': 'application/json'
-	//         },
-	//         body: JSON.stringify(this.state)
-	//     }
-
-	//     fetch('http://localhost:4000/auth', reqObj)
-	//     .then(resp => resp.json())
-	//     .then(user => {
-	//         // store user data in redux store
-	//         // redirect to dashboard
-	//         if (!user.error) {
-	//             this.props.loginUser(user)
-	//             this.props.history.push('/')
-	//         } else {
-	//             alert(user.error)
-	//             this.props.history.push('/login')
-	//         }
-	//     })
-
-	//     this.setState({
-	//         username: '',
-	//         password: ''
-	//     })
-	// }
-
-	// handleSignUpClick = () => {
+	handleOnSubmit = event => {
+		event.preventDefault()
 		
-	// }
+		if (this.state.password !== this.state.confirmpassword) {
+			alert('Passwords do not match, please try again.')
+			this.resetForm()
+			return
+		}
+
+	    const reqObj = {
+	        method: 'POST',
+	        headers: {
+	            'Content-Type': 'application/json',
+	            'Accept': 'application/json'
+	        },
+	        body: JSON.stringify(this.state)
+	    }
+
+	    fetch('http://localhost:4000/users', reqObj)
+			.then(resp => resp.json())
+			.then(user => {
+				if (!user.error) {
+					this.props.loginUser(user)
+					this.props.history.push('/dashboard')
+				} else {
+					alert(user.error)
+					this.resetForm()
+				}
+			})
+
+	    this.setState({
+	        username: '',
+	        password: ''
+	    })
+	}
+
+	resetForm = () => {
+		this.setState({
+			username: '',
+			password: '',
+			confirmpassword: '',
+			name: '',
+			age: '',
+			city: ''
+		})
+	}
 	
 	render () {
 		const gridColumnStyles = {
@@ -67,12 +82,12 @@ class SignUp extends React.Component {
 					<Grid.Row>
 						<Grid.Column computer={4} mobile={1} tablet={2} />
 						<Grid.Column textAlign="center" computer={8} mobile={14} tablet={12} style={gridColumnStyles}> 
-							<Form >
+							<Form onSubmit={this.handleOnSubmit}>
 								<Form.Input 
 									// label='username' 
 									name='username' 
 									type='text' 
-									placeholder='username'
+									placeholder='Username'
 									icon='user' 
 									value={this.state.username} 
 									onChange={this.handleOnChange}/>
@@ -80,7 +95,7 @@ class SignUp extends React.Component {
 									// label='password'
 									name='password'  
 									type='password' 
-									placeholder='password' 
+									placeholder='Password' 
 									icon='key'
 									value={this.state.password} 
 									onChange={this.handleOnChange}/>
@@ -88,11 +103,32 @@ class SignUp extends React.Component {
 									// label='confirm password'
 									name='confirmpassword'  
 									type='password' 
-									placeholder='confirm password' 
+									placeholder='Confirm Password' 
 									icon='key'
 									value={this.state.confirmpassword} 
 									onChange={this.handleOnChange}/>
-								<Form.Button color='blue' type='submit' fluid size="large">Log In</Form.Button>                              
+								<Form.Input 
+									name='name'  
+									type='text' 
+									placeholder='Full Name' 
+									// icon=''
+									value={this.state.name} 
+									onChange={this.handleOnChange}/>
+								<Form.Input 
+									name='age'  
+									type='text' 
+									placeholder='Age' 
+									// icon=''
+									value={this.state.age} 
+									onChange={this.handleOnChange}/>
+								<Form.Input 
+									name='city'  
+									type='text' 
+									placeholder='City' 
+									// icon=''
+									value={this.state.city} 
+									onChange={this.handleOnChange}/>
+								<Form.Button color='blue' type='submit' fluid size="large">Create Account</Form.Button>                              
 							</Form>
 						</Grid.Column>
 						<Grid.Column computer={4} mobile={1} tablet={2} />
@@ -103,11 +139,10 @@ class SignUp extends React.Component {
 	}
 }
 
-// const mapDispatchToProps = dispatch => {
-//     return {
-//         loginUser: user => dispatch(loginUser(user))
-//     }
-// }
+const mapDispatchToProps = dispatch => {
+    return {
+        loginUser: user => dispatch(loginUser(user))
+    }
+}
 
-// export default connect(null, mapDispatchToProps)(Login)
-export default SignUp
+export default connect(null, mapDispatchToProps)(SignUp)

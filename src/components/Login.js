@@ -2,8 +2,7 @@ import React from 'react'
 import {Grid, Form, Input} from 'semantic-ui-react'
 import {connect} from 'react-redux'
 import {loginUser} from '../actions/auth'
-// import { Link } from 'react-router-dom';
-
+import {withRouter, Link} from 'react-router-dom'
 
 class Login extends React.Component {
 	constructor(){
@@ -88,9 +87,7 @@ class Login extends React.Component {
 						<Grid.Column computer={4} mobile={1} tablet={2}/>
 						<Grid.Column textAlign="center" computer={8} mobile={14} tablet={12}>
 							Don't have an account? &nbsp;
-							{/* <Link to="/signup"> */}
-							<a href="/signup">Sign Up</a>
-							{/* </Link> */}
+							<Link to="/signup">Sign Up</Link>
 						</Grid.Column>
 						<Grid.Column computer={4} mobile={1} tablet={2}/>
 					</Grid.Row>
@@ -106,4 +103,4 @@ const mapDispatchToProps = dispatch => {
     }
 }
 
-export default connect(null, mapDispatchToProps)(Login)
+export default connect(null, mapDispatchToProps)(withRouter(Login))

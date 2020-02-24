@@ -3,10 +3,7 @@ import {Grid, Button, Header} from "semantic-ui-react"
 import { withRouter, Link } from 'react-router-dom';
 // import { connect } from 'react-redux'
 
-
-
 class Navbar extends React.Component {
-	
 
 	handleLoginOnClick = () => {
 		// if (!this.props.auth) {
@@ -29,9 +26,9 @@ class Navbar extends React.Component {
 			<Grid style={{marginTop: "1rem"}} columns={2}>
 				<Grid.Row columns={2}>
 					<Grid.Column onClick={this.handleOnClick}>
-						<a href='/'>
+						<Link to='/'>
 							<Header as='h1' floated='left'>PickUp App</Header>
-						</a>
+						</Link>
 					</Grid.Column>
 					<Grid.Column >
 						<Link to="/login">
