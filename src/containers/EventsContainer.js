@@ -1,6 +1,9 @@
 import React from 'react'
-import EventPreview from '../components/events/EventPreview'
+import {Grid} from "semantic-ui-react"
 import {connect} from 'react-redux'
+import { Link } from 'react-router-dom';
+import EventPreview from '../components/events/EventPreview'
+
 
 class EventsContainer extends React.Component {
     constructor(){
@@ -17,7 +20,7 @@ class EventsContainer extends React.Component {
                     <h4>
                         No events found.
                         <br/> 
-                        <a href='/signup'>Click here</a> to create an account and add an event
+                        <Link to='/signup'>Click here</Link> to create an account and add an event
                     </h4>
                 </div>
             )
@@ -26,9 +29,7 @@ class EventsContainer extends React.Component {
         return this.state.events.map(eventObj => {
             return (
                 <div data-event-id={eventObj.id} key={eventObj.id}>
-                    <EventPreview 
-                        note={eventObj}
-                    />
+                    <EventPreview event={eventObj}/>
                 </div>
             )
         })
@@ -38,25 +39,23 @@ class EventsContainer extends React.Component {
     render () {
         return (
             <div className="EventsContainer">
-                <Grid>
-                    <Grid.Column>
-                        <div className="EventPreviews">
-                            {this.renderEventPreviews()}
-                        </div>
-                    </Grid.Column>
-                    <Grid.Column>
-                        {/* {this.renderShowEvent()} */}
-                    </Grid.Column>
-                </Grid>
+                <Grid.Column>
+                    <div className="EventPreviews">
+                        {this.renderEventPreviews()}
+                    </div>
+                </Grid.Column>
+                <Grid.Column>
+                    {/* {this.renderShowEvent()} */}
+                </Grid.Column>
             </div>
         )
     }
 }
 
-// const mapStateToProps = state => {
-//     return {
-//         user: state.auth
-//     }
-// }
+const mapStateToProps = state => {
+    return {
+        user: state.auth
+    }
+}
 
-export default EventsContainer
+export default connect(mapStateToProps)(EventsContainer)

@@ -1,5 +1,5 @@
 import React from 'react'
-import {Container} from 'semantic-ui-react'
+import {Container, Search} from 'semantic-ui-react'
 import {BrowserRouter, Route, Switch} from 'react-router-dom'
 
 import Home from './components/Home'
@@ -19,6 +19,7 @@ function App() {
 						<Route path="/dashboard" component={Dashboard} />
 						<Route path="/login" component={Login} />
 						<Route path="/signup" component={SignUp} />
+						<Route path="/search" component={Search} /> 
 					</Switch>
 				</div>
 			</BrowserRouter>
