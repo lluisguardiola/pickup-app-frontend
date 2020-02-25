@@ -7,6 +7,7 @@ import Navbar from './components/Navbar'
 import Login from './components/Login'
 import SignUp from './components/SignUp'
 import Dashboard from './components/Dashboard'
+import EventShowPage from './components/events/EventShowPage'
 
 function App() {
 	return (
@@ -20,6 +21,7 @@ function App() {
 						<Route path="/login" component={Login} />
 						<Route path="/signup" component={SignUp} />
 						<Route path="/search" component={Search} /> 
+						<Route path="/events/:id" component={EventShowPage} />
 					</Switch>
 				</div>
 			</BrowserRouter>

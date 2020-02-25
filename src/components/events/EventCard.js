@@ -1,15 +1,18 @@
 import React from 'react'
-import {Grid} from 'semantic-ui-react'
+import {Card, Image} from 'semantic-ui-react'
 
 class EventCard extends React.Component {
-    
+
     render () {
+		
         return (
-            <Grid data-event-id={this.props.event.id}>
-                <h4>
-                    {this.props.event.title}
-                </h4>
-            </Grid>
+				<Card>
+					<Image src='https://react.semantic-ui.com/images/movies/totoro-horizontal.jpg' />
+					<Card.Content>
+						<Card.Header>{this.props.event.title}</Card.Header>
+						<Card.Description>{this.props.event.description}</Card.Description>
+					</Card.Content>
+      			</Card>
         )
     }
 }

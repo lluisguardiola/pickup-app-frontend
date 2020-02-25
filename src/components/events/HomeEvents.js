@@ -1,5 +1,5 @@
 import React from 'react'
-import {Grid} from "semantic-ui-react"
+import {Grid, Card} from "semantic-ui-react"
 // import { Link } from 'react-router-dom'
 import EventCard from './EventCard'
 import {connect} from 'react-redux'
@@ -13,7 +13,15 @@ class HomeEvents extends React.Component {
 		.then(events => {
 			this.props.fetchEvents(events)
 		})	
-	} 
+    }
+    
+    splitArray = (array, part) => {
+        const newArr = []
+        for (let i = 0; i < array.length; i += part) {
+            newArr.push(array.slice(i, i + part))
+        }
+        return newArr;
+    }
 
     renderEventCards = () => {
         const {events} = this.props
@@ -26,19 +34,31 @@ class HomeEvents extends React.Component {
             )
         }
 
-        return events.map(eventObj => {
-            return <EventCard key={eventObj.id} event={eventObj}/>
+        const matrix = this.splitArray(events, 3)
+
+        return matrix.map((row, index) => {
+            return (
+                <Card.Group key={index}>
+                    {row.map(eventObj => {
+                        return (
+                            <EventCard
+                                key={eventObj.id} 
+                                event={eventObj} 
+                            />
+                        )
+                    })}
+                </Card.Group>
+            )
         })
     }
 
     render () {
         return (
-            <div className="HomeEvents">
-                <Grid.Column>
-                    <h2>PickUp Games Near You</h2>
-					{this.renderEventCards()}
-                </Grid.Column>
-            </div>
+            <Grid className="HomeEvents" centered>
+                <h2>PickUp Games Near You</h2>
+                <br/>
+                {this.renderEventCards()}
+            </Grid>
         )
     }
 }
