@@ -28,14 +28,16 @@ class EventShowPage extends React.Component {
 			return (
 				<Grid>
 					<Grid.Row>
-						<Grid.Column>
+						<Grid.Column width={12}>
 							<h1>Title: {event.title}</h1>
-							<h2>Hosted by: {host.name}</h2>
-							<h3>Playing: {game.name}</h3>
+							<h2>Playing: {game.name}</h2>
+							<h3>Hosted by: {host.name}</h3>
 							<p>Description: {event.description}</p>
 							<p>Address: {event.address}</p>
 							<p>Time: {event.time}</p>
 							<p>Date: {event.date}</p>
+						</Grid.Column>
+						<Grid.Column width={4}>
 							<h4>{attendees.length + 1} people are attending this game:</h4>
 							<ul>
 								<li>{host.name}</li>
