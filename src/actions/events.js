@@ -4,3 +4,10 @@ export const fetchEvents = events => {
         events
     }
 }
+
+export const fetchUserEvents = userEvents => {
+    return {
+        type: 'FETCH_USER_EVENTS',
+        userEvents
+    }
+}

@@ -8,6 +8,10 @@ import {fetchEvents} from '../../actions/events'
 class HomeEvents extends React.Component {
 	
 	componentDidMount = () => {
+        if (this.props.events) {
+            return null
+        }
+
 		fetch('http://localhost:4000/events')
 		.then(resp => resp.json())
 		.then(events => {
@@ -57,7 +61,7 @@ class HomeEvents extends React.Component {
             <Grid className="HomeEvents" centered>
                 <h2>PickUp Games Near You</h2>
                 <br/>
-                {this.renderEventCards()}
+                {this.props.events ? this.renderEventCards() : <h1>LOADING ...</h1>}
             </Grid>
         )
     }
@@ -65,7 +69,7 @@ class HomeEvents extends React.Component {
 
 const mapStateToProps = state => {
     return {
-        events: state.events
+        events: state.events.homeEvents
     }
 }
 
