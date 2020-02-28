@@ -15,6 +15,14 @@ export default (state = initialState, action) => {
                 ...state,
                 userEvents: action.userEvents
             }
+        case 'ADD_NEW_USER_EVENT':
+            return {
+                ...state,
+                userEvents: [
+                    ...state.userEvents,
+                    action.userEvent
+                ]
+            }
         default:
             return state
     }

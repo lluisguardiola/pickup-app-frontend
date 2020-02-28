@@ -38,9 +38,8 @@ class EventShowPage extends React.Component {
 							<p>Date: {event.date}</p>
 						</Grid.Column>
 						<Grid.Column width={4}>
-							<h4>{attendees.length + 1} people are attending this game:</h4>
+							<h4>{attendees.length} people are attending this event:</h4>
 							<ul>
-								<li>{host.name}</li>
 								{attendees.map(person => {
 									return <li key={person.id}>{person.name}</li>
 								})}

@@ -11,3 +11,10 @@ export const fetchUserEvents = userEvents => {
         userEvents
     }
 }
+
+export const addUserEvent = userEvent => {
+    return {
+        type: 'ADD_NEW_USER_EVENT',
+        userEvent
+    }
+}
