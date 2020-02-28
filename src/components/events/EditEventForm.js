@@ -6,6 +6,7 @@ import {withRouter} from 'react-router-dom'
 class EditEventForm extends React.Component {
 	constructor(){
 		super()
+		
 		this.state = {
 			formData: {
 				title: '',
@@ -27,22 +28,23 @@ class EditEventForm extends React.Component {
             return null
 		}
 
+		const {event} = this.props.location.state
+
 		fetch(`http://localhost:4000/games`)
 		.then(resp => resp.json())
 		.then(games => {
 			this.setState({
+				formData: {
+					title: event.title,
+					description: event.description,
+					address: event.address,
+					game_id: event.game.id,
+					time: event.time,
+					date: event.date
+				},
 				searchData: games
 			})
 		})
-
-		// fetch(`http://localhost:4000/events/${this.props.match.params.id}`)
-		// .then(resp => resp.json())
-		// .then(event => {
-		// 	console.log(event)
-		// 	// this.setState({
-		// 	// 	event: event
-		// 	// })
-		// })
 	}
 
 	renderGameOptions = () => {
@@ -78,26 +80,25 @@ class EditEventForm extends React.Component {
 			.then(resp => resp.json())
 			.then(event => {
 				if (!event.error) {
-					this.props.addUserEvent(event)
 					this.props.history.push(`/events/${event.id}`)
 				} else {
 					alert(event.error)
-					// this.resetForm()
+					this.resetForm()
 				}
 			})
 
-	    // this.resetForm()
+	    this.resetForm()
 	}
 
 	resetForm = () => {
 		this.setState({
 			formData: {
-			title: '',
-			description: '',
-			address: '',
-			game: '',
-			time: '',
-			date: ''
+				title: '',
+				description: '',
+				address: '',
+				game: '',
+				time: '',
+				date: ''
 		}})
 	}
 	
@@ -107,55 +108,61 @@ class EditEventForm extends React.Component {
 				<Grid style={{marginTop: "1rem"}} columns={3} centered>
 					<Grid.Row>
 						<Grid.Column computer={2} mobile={1} />
-						<Grid.Column textAlign="center" computer={12} mobile={14}> 
+						<Grid.Column textAlign="left" computer={12} mobile={14}> 
 							<Form onSubmit={this.handleOnSubmit}>
 								<Form.Input 
+									label='title'
 									name='title' 
 									type='text' 
 									placeholder='title'
 									required
-									value={this.state.title} 
+									value={this.state.formData.title || ''} 
 									onChange={this.handleOnChange}/>
 								<Form.TextArea 
+									label='description'
 									name='description'  
 									type='text' 
 									placeholder='description' 
 									required
-									value={this.state.description} 
+									value={this.state.formData.description || ''} 
 									onChange={this.handleOnChange}/>
 								<Form.Input 
+									label='address'
 									name='address'  
 									type='text' 
 									placeholder='address' 
 									required
-									value={this.state.address} 
+									value={this.state.formData.address || ''} 
 									onChange={this.handleOnChange}/>
 								<Form.Input 
+									label='game'
 									name='game_id'  
 									type='text' 
 									placeholder='game'
 									list="games"
 									required
-									value={this.state.game_id} 
+									value={this.state.formData.game_id || ''} 
 									onChange={this.handleOnChange}/>
 									<datalist id="games">
 										{this.renderGameOptions()}
 									</datalist>
 								<Form.Input 
+									label='time'
 									name='time'  
 									type='text' 
 									placeholder='time, format HH:MM' 
 									required
-									value={this.state.time} 
+									value={this.state.formData.time || ''} 
 									onChange={this.handleOnChange}/>
 								<Form.Input 
+									label='date'
 									name='date'  
 									type='text' 
 									placeholder='date, format: MM/DD/YYYY'
 									required
-									value={this.state.date} 
+									value={this.state.formData.date || ''} 
 									onChange={this.handleOnChange}/>
-								<Form.Button color='blue' type='submit' fluid size="large">Create Event</Form.Button>                              
+								<Form.Button color='blue' type='submit' fluid size="large">Submit Changes</Form.Button>                              
 							</Form>
 						</Grid.Column>
 						<Grid.Column computer={2} mobile={1} />
@@ -171,11 +178,5 @@ const mapStateToProps = state => {
 		user: state.auth
     }
 }
-
-// const mapDispatchToProps = dispatch => {
-//     return {
-//         addUserEvent: userEvent => dispatch(addUserEvent(userEvent))
-//     }
-// }
 
 export default connect(mapStateToProps, null)(withRouter(EditEventForm))

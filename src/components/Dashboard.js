@@ -9,7 +9,7 @@ class Dashboard extends React.Component {
 
 	componentDidMount = () => {
 
-        if(!this.props.user || this.props.userEvents) {
+        if(!this.props.user) {
             return null
 		}
 
