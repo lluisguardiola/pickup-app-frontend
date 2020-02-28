@@ -1,6 +1,7 @@
 import React from 'react'
-import {Grid} from "semantic-ui-react"
-import {withRouter} from 'react-router-dom'
+import {Grid, Button} from "semantic-ui-react"
+import {withRouter, Link} from 'react-router-dom'
+import { connect } from 'react-redux'
 
 class EventShowPage extends React.Component {
 	state = {
@@ -19,12 +20,12 @@ class EventShowPage extends React.Component {
 	
 	render () {
 		const {event} = this.state
-
 		
 		if (!event) {
 			return <h1>LOADING ...</h1>
 		} else {
 			const {game, host, attendees} = event
+
 			return (
 				<Grid>
 					<Grid.Row>
@@ -46,10 +47,36 @@ class EventShowPage extends React.Component {
 							</ul>
 						</Grid.Column>
 					</Grid.Row>
+					<Grid.Row>
+						{
+							!this.props.user || this.props.user.id !== host.id
+								?
+							null
+								:
+							<div>
+								<Link to={{
+									pathname: `/events/${event.id}/edit`,
+									state: {
+										event: event
+									}
+								}}>
+									<Button>Edit</Button>
+								</Link>
+								<Button>Delete</Button>
+							</div>
+						}
+					</Grid.Row>
 				</Grid>
 			)
 		}
     }
 }
 
-export default withRouter(EventShowPage)
+const mapStateToProps = state => {
+    return {
+		user: state.auth,
+		userEvents: state.events.userEvents
+    }
+}
+
+export default connect(mapStateToProps)(withRouter(EventShowPage))

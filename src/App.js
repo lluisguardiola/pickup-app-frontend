@@ -9,6 +9,7 @@ import SignUp from './components/SignUp'
 import Dashboard from './components/Dashboard'
 import EventShowPage from './components/events/EventShowPage'
 import NewEventForm from './components/events/NewEventForm'
+import EditEventForm from './components/events/EditEventForm'
 
 function App() {
 	return (
@@ -23,6 +24,7 @@ function App() {
 						<Route path="/signup" component={SignUp} />
 						<Route path="/search" component={Search} /> 
 						<Route path="/events/new" component={NewEventForm} />
+						<Route path="/events/:id/edit" component={EditEventForm} />
 						<Route path="/events/:id" component={EventShowPage} />
 					</Switch>
 				</div>
