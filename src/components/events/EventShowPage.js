@@ -11,11 +11,15 @@ class EventShowPage extends React.Component {
 		event: null,
 		mapStyle: '',
 		viewport: {
-			width: "100vw",
-			height: "100vh",
+			width: 700,
+			height: 400,
 			latitude: 41.881832,
 			longitude: -87.623177,
-			zoom: 15
+			zoom: 14
+		}, 
+		markerCoords: {
+			latitude: 41.881832,
+			longitude: -87.623177
 		}
 	}
 	
@@ -37,7 +41,7 @@ class EventShowPage extends React.Component {
 		fetch(`https://api.mapbox.com/geocoding/v5/mapbox.places/${this.state.event.address}.json?country=US&types=address&access_token=${MAPBOX_TOKEN}`)
 			.then(resp => resp.json())
 			.then(mapboxData => {
-				console.log(mapboxData)
+				console.log('back;', mapboxData)
 				this.setState(prevState => {	
 					return {
 						...prevState,
@@ -45,8 +49,11 @@ class EventShowPage extends React.Component {
 							...prevState.viewport,
 							longitude: mapboxData.features[0].geometry.coordinates[0],
 							latitude: mapboxData.features[0].geometry.coordinates[1]
+						},
+						markerCoords: {
+							longitude: mapboxData.features[0].geometry.coordinates[0],
+							latitude: mapboxData.features[0].geometry.coordinates[1]
 						}
-					
 				}})
 			})
 	}
@@ -118,7 +125,7 @@ class EventShowPage extends React.Component {
 							</div>
 						}
 					</Grid.Row>
-					<Grid.Row>
+					<Grid.Row centered>
 							{
 								!event 
 									?
@@ -131,8 +138,8 @@ class EventShowPage extends React.Component {
 									onViewportChange={this.onViewportChange}
 								>
 									<Marker 
-										latitude={this.state.viewport.latitude}
-										longitude={this.state.viewport.longitude}
+										latitude={this.state.markerCoords.latitude}
+										longitude={this.state.markerCoords.longitude}
 									>
 										<Icon 
 											color='red' 
