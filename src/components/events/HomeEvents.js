@@ -1,5 +1,5 @@
 import React from 'react'
-import {Grid, Card} from "semantic-ui-react"
+import {Grid, Card, Loader} from "semantic-ui-react"
 // import { Link } from 'react-router-dom'
 import EventCard from './EventCard'
 import {connect} from 'react-redux'
@@ -42,6 +42,7 @@ class HomeEvents extends React.Component {
 
         return matrix.map((row, index) => {
             return (
+                
                 <Card.Group key={index}>
                     {row.map(eventObj => {
                         return (
@@ -59,9 +60,16 @@ class HomeEvents extends React.Component {
     render () {
         return (
             <Grid className="HomeEvents" centered>
-                <h2>PickUp Games Near You</h2>
-                <br/>
-                {this.props.events ? this.renderEventCards() : <h1>LOADING ...</h1>}
+                {this.props.events 
+                    ?
+                <Grid.Row>
+                    <h2>Latest PickUp Games</h2>
+                    <br/>
+                    {this.renderEventCards()} 
+                </Grid.Row>
+                    : 
+                <Loader active />
+                }
             </Grid>
         )
     }

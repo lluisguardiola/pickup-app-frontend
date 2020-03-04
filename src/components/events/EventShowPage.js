@@ -41,7 +41,7 @@ class EventShowPage extends React.Component {
 		fetch(`https://api.mapbox.com/geocoding/v5/mapbox.places/${this.state.event.address}.json?country=US&types=address&access_token=${MAPBOX_TOKEN}`)
 			.then(resp => resp.json())
 			.then(mapboxData => {
-				console.log('back;', mapboxData)
+				// console.log('back;', mapboxData)
 				this.setState(prevState => {	
 					return {
 						...prevState,

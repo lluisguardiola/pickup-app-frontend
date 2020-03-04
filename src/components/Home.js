@@ -3,7 +3,7 @@ import {Grid, Header, Button, Message} from "semantic-ui-react"
 import {connect} from 'react-redux'
 import {withRouter, Link} from 'react-router-dom'
 import HomeEvents from './events/HomeEvents'
-import SearchBar from './SearchBar'
+// import SearchBar from './SearchBar'
 
 class Home extends React.Component {
 
@@ -27,7 +27,7 @@ class Home extends React.Component {
 					</Grid.Column>
 				</Grid.Row>
 				<Grid.Row centered>
-					<SearchBar />
+					{/* <SearchBar /> */}
 				</Grid.Row>
 				<Grid.Row>
 					<HomeEvents/>
