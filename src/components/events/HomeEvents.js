@@ -42,7 +42,6 @@ class HomeEvents extends React.Component {
 
         return matrix.map((row, index) => {
             return (
-                
                 <Card.Group key={index}>
                     {row.map(eventObj => {
                         return (
@@ -63,8 +62,6 @@ class HomeEvents extends React.Component {
                 {this.props.events 
                     ?
                 <Grid.Row>
-                    <h2>Latest PickUp Games</h2>
-                    <br/>
                     {this.renderEventCards()} 
                 </Grid.Row>
                     : 

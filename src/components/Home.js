@@ -12,7 +12,7 @@ class Home extends React.Component {
 			<Grid>
 				<Grid.Row centered>
 					<Grid.Column textAlign="center">
-						<Header as='h1'>PickUp App Home</Header>
+						<Header as='h1'>Logo here?</Header>
 						<Grid.Row>
 							<Message>some info or slogan or whatever goes here in the meantime heres some text</Message>
 						</Grid.Row>
@@ -30,6 +30,7 @@ class Home extends React.Component {
 					{/* <SearchBar /> */}
 				</Grid.Row>
 				<Grid.Row>
+					<h2>Latest PickUp Games</h2>
 					<HomeEvents/>
 				</Grid.Row>
 			</Grid>

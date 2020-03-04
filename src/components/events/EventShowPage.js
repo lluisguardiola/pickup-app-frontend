@@ -1,5 +1,5 @@
 import React from 'react'
-import {Grid, Button, Icon} from "semantic-ui-react"
+import {Grid, Button, Icon, Loader} from "semantic-ui-react"
 import {withRouter, Link} from 'react-router-dom'
 import { connect } from 'react-redux'
 import ReactMapGL, { Marker } from 'react-map-gl'
@@ -15,7 +15,9 @@ class EventShowPage extends React.Component {
 			height: 400,
 			latitude: 41.881832,
 			longitude: -87.623177,
-			zoom: 14
+			zoom: 14,
+			pitch: 0,
+			bearing: 0
 		}, 
 		markerCoords: {
 			latitude: 41.881832,
@@ -48,7 +50,11 @@ class EventShowPage extends React.Component {
 						viewport: {
 							...prevState.viewport,
 							longitude: mapboxData.features[0].geometry.coordinates[0],
-							latitude: mapboxData.features[0].geometry.coordinates[1]
+							latitude: mapboxData.features[0].geometry.coordinates[1],
+							center: [
+								mapboxData.features[0].geometry.coordinates[0],
+								mapboxData.features[0].geometry.coordinates[1]
+							]
 						},
 						markerCoords: {
 							longitude: mapboxData.features[0].geometry.coordinates[0],
@@ -72,15 +78,41 @@ class EventShowPage extends React.Component {
 		const {event} = this.state
 		
 		if (!event) {
-			return <h1>LOADING ...</h1>
+			return <Loader active />
 		} else {
 			const {game, host, attendees} = event
 
 			return (
 				<Grid>
+					<Grid.Row centered>
+						{
+							!event 
+								?
+							null
+								:
+							<ReactMapGL 
+								{...this.state.viewport}
+								mapboxApiAccessToken={MAPBOX_TOKEN} 
+								mapStyle="mapbox://styles/mapbox/streets-v11"
+								onViewportChange={this.onViewportChange}
+							>
+								<Marker 
+									latitude={this.state.markerCoords.latitude}
+									longitude={this.state.markerCoords.longitude}
+									anchor="bottom"
+								>
+									<Icon 
+										color='red' 
+										name='map marker alternate'
+										size='big'
+									/>
+								</Marker>
+							</ReactMapGL>
+						}
+					</Grid.Row>
 					<Grid.Row>
 						<Grid.Column width={12}>
-							<h1>Title: {event.title}</h1>
+							<h1>{event.title}</h1>
 							<h2>Playing: {game.name}</h2>
 							<h3>Hosted by: {host.name}</h3>
 							<p>Description: {event.description}</p>
@@ -124,32 +156,6 @@ class EventShowPage extends React.Component {
 								<Button>Delete</Button>
 							</div>
 						}
-					</Grid.Row>
-					<Grid.Row centered>
-							{
-								!event 
-									?
-								null
-									:
-								<ReactMapGL 
-									{...this.state.viewport}
-									mapboxApiAccessToken={MAPBOX_TOKEN} 
-									mapStyle="mapbox://styles/mapbox/streets-v11"
-									onViewportChange={this.onViewportChange}
-								>
-									<Marker 
-										latitude={this.state.markerCoords.latitude}
-										longitude={this.state.markerCoords.longitude}
-									>
-										<Icon 
-											color='red' 
-											name='map marker alternate'
-											size='big'
-										/>
-									</Marker>
-								</ReactMapGL>
-							}
-							
 					</Grid.Row>
 				</Grid>
 			)
