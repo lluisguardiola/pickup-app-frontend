@@ -1,8 +1,9 @@
 import React from 'react'
-import {Grid, Header, Button, Message} from "semantic-ui-react"
+import {Grid, Header, Button, Segment} from "semantic-ui-react"
 import {connect} from 'react-redux'
 import {withRouter, Link} from 'react-router-dom'
 import HomeEvents from './events/HomeEvents'
+import Logo from '../images/pickapplogo.png'
 // import SearchBar from './SearchBar'
 
 class Home extends React.Component {
@@ -12,16 +13,18 @@ class Home extends React.Component {
 			<Grid>
 				<Grid.Row centered>
 					<Grid.Column textAlign="center">
-						<Header as='h1'>Logo here?</Header>
+						<img src={Logo} />
 						<Grid.Row>
-							<Message>some info or slogan or whatever goes here in the meantime heres some text</Message>
+							<div className="segment-div" style={{width: '600px'}}>
+								<Segment>Join a local pickup game, try something new, do more of what you love.</Segment>
+							</div>
 						</Grid.Row>
 						<br/>
 						{this.props.auth ? 
 							null 
 							: 
 							<Link to='/signup'>
-								<Button color='blue'>Join</Button>
+								<Button color='yellow'>Join</Button>
 							</Link>
 						}
 					</Grid.Column>
@@ -29,7 +32,7 @@ class Home extends React.Component {
 				<Grid.Row centered>
 					{/* <SearchBar /> */}
 				</Grid.Row>
-				<Grid.Row>
+				<Grid.Row centered>
 					<h2>Latest PickUp Games</h2>
 					<HomeEvents/>
 				</Grid.Row>

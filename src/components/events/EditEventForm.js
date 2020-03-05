@@ -162,7 +162,7 @@ class EditEventForm extends React.Component {
 									required
 									value={this.state.formData.date || ''} 
 									onChange={this.handleOnChange}/>
-								<Form.Button color='blue' type='submit' fluid size="large">Submit Changes</Form.Button>                              
+								<Form.Button color='yellow' type='submit' fluid size="large">Submit Changes</Form.Button>                              
 							</Form>
 						</Grid.Column>
 						<Grid.Column computer={2} mobile={1} />

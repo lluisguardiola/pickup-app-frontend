@@ -1,5 +1,5 @@
 import React from 'react'
-import {Grid, Header, Card, Loader} from "semantic-ui-react"
+import {Grid, Header, Card, Loader, Segment} from "semantic-ui-react"
 import {connect} from 'react-redux'
 import {withRouter, Link} from 'react-router-dom'
 import {fetchUserEvents} from '../actions/events'
@@ -75,9 +75,11 @@ class Dashboard extends React.Component {
 			<Grid style={{marginTop: "2rem"}}>
 				<Header as='h2'>{this.props.user.name}'s Dashboard</Header>
 				<Grid.Row style={{marginTop: "1rem", marginLeft: "1rem"}}>
-					<Link to="/events/new">
-							Create an Event
-					</Link>
+					<Segment>
+						<Link to="/events/new">
+								Create an Event
+						</Link>
+					</Segment>
 				</Grid.Row>
 				<Header as='h3'>Upcoming Events</Header>
 				<Grid.Row style={{marginTop: "1rem"}} centered>

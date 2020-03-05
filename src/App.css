@@ -1,0 +1,19 @@
+html, body{
+	height: 100%;
+	background-color: #dee1ec;
+}
+
+.App {
+	background-color: #dee1ec;
+	padding-left: 50px;
+	padding-right: 50px;
+	
+}
+
+.segment-div {
+	margin: 0 auto;
+}
+
+.ui.button {
+	background-color: #eac100;
+}

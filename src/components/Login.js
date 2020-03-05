@@ -78,7 +78,7 @@ class Login extends React.Component {
 									icon='key'
 									value={this.state.password} 
 									onChange={this.handleOnChange}/>
-								<Form.Button color='blue' type='submit' fluid size="large">Log In</Form.Button>                              
+								<Form.Button color='yellow' type='submit' fluid size="large">Log In</Form.Button>                              
 							</Form>
 						</Grid.Column>
 						<Grid.Column computer={4} mobile={1} tablet={2} />

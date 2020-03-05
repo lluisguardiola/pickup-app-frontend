@@ -153,7 +153,7 @@ class NewEventForm extends React.Component {
 									required
 									value={this.state.date} 
 									onChange={this.handleOnChange}/>
-								<Form.Button color='blue' type='submit' fluid size="large">Create Event</Form.Button>                              
+								<Form.Button color='yellow' type='submit' fluid size="large">Create Event</Form.Button>                              
 							</Form>
 						</Grid.Column>
 						<Grid.Column computer={2} mobile={1} />

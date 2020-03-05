@@ -128,7 +128,7 @@ class SignUp extends React.Component {
 									// icon=''
 									value={this.state.city} 
 									onChange={this.handleOnChange}/>
-								<Form.Button color='blue' type='submit' fluid size="large">Create Account</Form.Button>                              
+								<Form.Button color='yellow' type='submit' fluid size="large">Create Account</Form.Button>                              
 							</Form>
 						</Grid.Column>
 						<Grid.Column computer={4} mobile={1} tablet={2} />

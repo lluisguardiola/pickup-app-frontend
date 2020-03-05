@@ -180,7 +180,7 @@ class EventShowPage extends React.Component {
 							{
 								this.props.user
 									?
-								<Button onClick={this.handleAttendButton}>
+								<Button color='yellow' onClick={this.handleAttendButton}>
 									{
 										this.state.event.attendees.find(user => user.id === this.props.user.id)
 											?
@@ -209,9 +209,9 @@ class EventShowPage extends React.Component {
 										event: event
 									}
 								}}>
-									<Button>Edit</Button>
+									<Button color='yellow'>Edit</Button>
 								</Link>
-								<Button onClick={this.handleDelete}>Delete</Button>
+								<Button color='yellow' onClick={this.handleDelete}>Delete</Button>
 							</div>
 						}
 					</Grid.Row>
