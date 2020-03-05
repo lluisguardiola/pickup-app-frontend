@@ -66,8 +66,6 @@ class EventShowPage extends React.Component {
  	
 	handleAttendButton = (e) => {
 		e.preventDefault()
-		console.log('user', this.props.user)
-		console.log('event id', this.props.match.params.id)
 
 		const reqObj = {
 	        method: 'POST',
@@ -84,7 +82,6 @@ class EventShowPage extends React.Component {
 		fetch(`http://localhost:4000/users/attend/`, reqObj)
 		.then(resp => resp.json())
 		.then(data => {
-			console.log(data)
 			if (data.success) {
 				this.setState({
 					event: {
@@ -106,6 +103,25 @@ class EventShowPage extends React.Component {
 				alert(data.error)
 			}
 		})
+	}
+
+	handleDelete = (e) => {
+		const confirmation = window.confirm('Are you sure you want to delete this event?')
+		
+		if (confirmation) {
+			fetch(`http://localhost:4000/events/${this.state.event.id}`, {method: "DELETE"})
+			.then(resp => resp.json())
+			.then(event => {
+			if (event.error) {
+				alert(event.error)
+				return
+			} else {
+				this.props.history.push('/dashboard')
+			}
+		})
+		} else {
+			return
+		}
 	}
 	
 	render () {
@@ -195,7 +211,7 @@ class EventShowPage extends React.Component {
 								}}>
 									<Button>Edit</Button>
 								</Link>
-								<Button>Delete</Button>
+								<Button onClick={this.handleDelete}>Delete</Button>
 							</div>
 						}
 					</Grid.Row>
