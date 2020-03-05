@@ -1,5 +1,5 @@
 import React from 'react'
-import {Grid, Header, Button, Segment} from "semantic-ui-react"
+import {Grid, Image, Button, Segment} from "semantic-ui-react"
 import {connect} from 'react-redux'
 import {withRouter, Link} from 'react-router-dom'
 import HomeEvents from './events/HomeEvents'
@@ -13,7 +13,15 @@ class Home extends React.Component {
 			<Grid>
 				<Grid.Row centered>
 					<Grid.Column textAlign="center">
-						<img src={Logo} />
+						<Image 
+							verticalAlign="top" 
+							src={Logo} 
+							alt="App Logo" 
+							style={{
+								marginTop: '-120px',
+							}} 
+							>
+						</Image>
 						<Grid.Row>
 							<div className="segment-div" style={{width: '600px'}}>
 								<Segment>Join a local pickup game, try something new, do more of what you love.</Segment>
