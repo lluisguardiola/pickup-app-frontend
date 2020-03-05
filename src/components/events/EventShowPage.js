@@ -64,15 +64,49 @@ class EventShowPage extends React.Component {
 			})
 	}
  	
-	// handleAttendButton = () => {
-	// 	// event.preventDefault()
+	handleAttendButton = (e) => {
+		e.preventDefault()
+		console.log('user', this.props.user)
+		console.log('event id', this.props.match.params.id)
 
-	// 	fetch(`http://localhost:4000/`)
-	// 	.then(resp => resp.json())
-	// 	.then(data => {
-	// 		console.log(data)
-	// 	})
-	// }
+		const reqObj = {
+	        method: 'POST',
+	        headers: {
+	            'Content-Type': 'application/json',
+	            'Accept': 'application/json'
+	        },
+	        body: JSON.stringify({
+				user_id: this.props.user.id,
+				event_id: this.state.event.id
+			})
+		}
+
+		fetch(`http://localhost:4000/users/attend/`, reqObj)
+		.then(resp => resp.json())
+		.then(data => {
+			console.log(data)
+			if (data.success) {
+				this.setState({
+					event: {
+						...this.state.event,
+						attendees: [
+							...this.state.event.attendees,
+							data.user
+						]
+					}
+				})
+				alert(data.success)
+			} else if (data.error) {
+				this.setState({
+					event: {
+						...this.state.event,
+						attendees: this.state.event.attendees.filter(user => user.id !== data.user.id)
+					}
+				})
+				alert(data.error)
+			}
+		})
+	}
 	
 	render () {
 		const {event} = this.state
@@ -130,7 +164,15 @@ class EventShowPage extends React.Component {
 							{
 								this.props.user
 									?
-								<Button onClick={this.handleAttendButton}>Join Event</Button> //terniary inside button checking if user is in attendee list or not.
+								<Button onClick={this.handleAttendButton}>
+									{
+										this.state.event.attendees.find(user => user.id === this.props.user.id)
+											?
+										'Unattend Event'
+											:
+										'Attend Event'
+									}
+								</Button>
 									:
 								<Link to='/login'>
 									Log in to register to this event

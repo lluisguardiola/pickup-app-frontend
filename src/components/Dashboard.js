@@ -74,7 +74,7 @@ class Dashboard extends React.Component {
 		return (
 			<Grid style={{marginTop: "2rem"}}>
 				<Header as='h2'>{this.props.user.name}'s Dashboard</Header>
-				<Grid.Row style={{marginTop: "1rem"}}>
+				<Grid.Row style={{marginTop: "1rem", marginLeft: "1rem"}}>
 					<Link to="/events/new">
 							Create an Event
 					</Link>

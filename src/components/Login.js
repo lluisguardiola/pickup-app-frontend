@@ -8,7 +8,7 @@ class Login extends React.Component {
 	constructor(){
 		super()
 		this.state = {
-			username: 'Pikachu',
+			username: 'Peach',
 			password: 'hello'
 		}
 	}
